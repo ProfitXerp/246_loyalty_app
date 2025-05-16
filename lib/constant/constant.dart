@@ -1,0 +1,10 @@
+final String _baseUrl = 'http://192.168.1.102:8000/api/';
+String? loginEndpoint = '${_baseUrl}login';
+String? redeemListEndpoint = '${_baseUrl}redeem/item/all';
+String? bannerEndPoint = '${_baseUrl}banner/all';
+String? userName = '';
+String? userAddress = '';
+String? userEmail = '';
+String? userPhone = '';
+String? userPoints = '';
+String? userRole = '';

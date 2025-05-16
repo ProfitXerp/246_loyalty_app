@@ -1,0 +1,41 @@
+[
+    {
+      "points": 2000,
+      "rewards": [
+        {
+          "name": "Gear Cycle",
+          "image": "https://plus.unsplash.com/premium_photo-1678718713393-2b88cde9605b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA=="
+        },
+        {
+          "name": "Muktinath Tour",
+          "image": "https://lh3.googleusercontent.com/p/AF1QipPpgD0vf9gN8TCNy3q8gETTWfoarNkAynIqZVLB=s680-w680-h510-rw"
+        },
+        {
+          "name": "Gift Voucher",
+          "image": "https://img.freepik.com/free-vector/realistic-gift-voucher-banners_23-2149116210.jpg?semt=ais_hybrid&w=740"
+        }
+      ]
+    },
+    {
+      "points": 3000,
+      "rewards": [
+        {
+          "name": "Single Door Fridge",
+          "image": "https://img.freepik.com/free-vector/refrigerator-with-closed-opened-door_1308-95206.jpg?ga=GA1.1.1314206690.1746510843&semt=ais_hybrid&w=740"
+        },
+        {
+          "name": "Air Cooler",
+          "image": "https://img.freepik.com/free-photo/air-conditioner-mounted-white-wall_53876-128235.jpg?semt=ais_hybrid&w=740"
+        },
+        {
+          "name": "CCTV with DVR",
+          "image": "https://www.shutterstock.com/image-vector/dvr-nvr-cloud-storage-ip-600nw-2138997913.jpg"
+        },
+        {
+          "name": "Gift Voucher",
+          "image": "https://img.freepik.com/free-vector/realistic-gift-voucher-banners_23-2149116210.jpg?semt=ais_hybrid&w=740"
+        }
+      ]
+    }
+  ]
+  
