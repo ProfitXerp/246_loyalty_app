@@ -15,7 +15,7 @@ class _BannerScreenState extends State<BannerScreen> {
   final BannerService _bannerService = BannerService();
   List<BannerModel> _banners = [];
   bool _isLoading = true;
-  int _currentIndex = 0; // To track the current page for dots
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -25,7 +25,7 @@ class _BannerScreenState extends State<BannerScreen> {
 
   Future<void> _loadBanners() async {
     try {
-      final banners = await _bannerService.fetchBannerData();
+      final banners = await _bannerService.fetchBannerData(context);
       setState(() {
         _banners = banners;
         _isLoading = false;
@@ -47,13 +47,12 @@ class _BannerScreenState extends State<BannerScreen> {
               : Column(
                 children: [
                   Expanded(
-                    // Use Expanded to constrain the height
                     child: CarouselSlider(
                       options: CarouselOptions(
                         height: 250.h,
                         autoPlay: true,
                         enlargeCenterPage: false,
-                        viewportFraction: 1, // slight margin at edges
+                        viewportFraction: 1,
                         onPageChanged: (index, reason) {
                           setState(() {
                             _currentIndex = index;
@@ -86,7 +85,7 @@ class _BannerScreenState extends State<BannerScreen> {
                           }).toList(),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  // SizedBox(height: 5.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(

@@ -1,18 +1,18 @@
-class Redeem {
+class RedeemModel {
   final int id;
   final String points;
   final Scheme scheme;
   final List<Item> items;
 
-  Redeem({
+  RedeemModel({
     required this.id,
     required this.points,
     required this.scheme,
     required this.items,
   });
 
-  factory Redeem.fromJson(Map<String, dynamic> json) {
-    return Redeem(
+  factory RedeemModel.fromJson(Map<String, dynamic> json) {
+    return RedeemModel(
       id: json['id'],
       points: json['points'],
       scheme: Scheme.fromJson(json['scheme']),

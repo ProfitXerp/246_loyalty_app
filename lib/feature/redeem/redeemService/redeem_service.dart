@@ -8,7 +8,7 @@ import 'package:redeem/feature/redeem/redeemModel/redeem_model.dart';
 class RedeemService {
   final _storage = const FlutterSecureStorage();
 
-  Future<List<Redeem>> fetchRedemptionData() async {
+  Future<List<RedeemModel>> fetchRedemptionData() async {
     final token = await _storage.read(key: '_token');
     if (token == null) {
       throw Exception('Token not found');
@@ -21,7 +21,7 @@ class RedeemService {
 
     if (response.statusCode == 200) {
       final List<dynamic> decoded = json.decode(response.body);
-      return decoded.map((json) => Redeem.fromJson(json)).toList();
+      return decoded.map((json) => RedeemModel.fromJson(json)).toList();
     } else {
       throw Exception('Failed to fetch data: ${response.statusCode}');
     }

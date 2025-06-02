@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:redeem/constant/constant.dart' show userPoints;
 import 'package:redeem/feature/Login/service/auth_service.dart';
+import 'package:redeem/widgets/mytext.dart';
 
 class CircularIndicatorScreen extends StatefulWidget {
   const CircularIndicatorScreen({super.key});
@@ -42,10 +43,16 @@ class _CircularIndicatorScreenState extends State<CircularIndicatorScreen> {
       body: Center(
         child: ListView(
           children: <Widget>[
+            Mytext(
+              text: "Your Reward Balance",
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              textAlign: TextAlign.center,
+            ),
             SizedBox(height: 20),
             CircularPercentIndicator(
               radius: 120.0,
-              lineWidth: 20.0,
+              lineWidth: 30.0,
               animation: true,
               // percent: (userPoints / finalPoints).clamp(0.0, 1.0),
               percent: currentPoints / finalPoints,
@@ -53,10 +60,10 @@ class _CircularIndicatorScreenState extends State<CircularIndicatorScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "$userPoints",
+                    "$currentPoints",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
+                      fontSize: 40.0,
                       color: const Color.fromARGB(255, 184, 48, 148),
                     ),
                   ),
@@ -80,9 +87,12 @@ class _CircularIndicatorScreenState extends State<CircularIndicatorScreen> {
               ),
               footer: Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  "Sales this week",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
+                child: Mytext(
+                  text:
+                      'you need 💰${finalPoints - currentPoints} more points to unlock the next reward',
+                  fontSize: 17.w,
+                  fontWeight: FontWeight.bold,
+                  textAlign: TextAlign.center,
                 ),
               ),
               circularStrokeCap: CircularStrokeCap.round,

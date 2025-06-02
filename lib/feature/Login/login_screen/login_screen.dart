@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:redeem/feature/Login/service/auth_service.dart';
 import 'package:redeem/feature/home_page/home_page.dart';
-import 'package:redeem/feature/signup/register_screen.dart';
+import 'package:redeem/widgets/mytext.dart';
 import 'package:redeem/widgets/mytextformfield.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -12,8 +14,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController contactController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController contactController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
   late bool _obsure = true;
   final AuthService _authService = AuthService();
@@ -44,11 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       try {
-        final authService = AuthService();
-        final user = await authService.login(
+        final user = await _authService.login(
           contactController.text.trim(),
           passwordController.text.trim(),
         );
+
         if (!mounted) return;
         Navigator.pop(context);
 
@@ -67,7 +69,6 @@ class _LoginScreenState extends State<LoginScreen> {
           builder:
               (_) => AlertDialog(
                 title: const Text('Login Failed'),
-
                 content: Text(e.toString()),
                 actions: [
                   TextButton(
@@ -87,17 +88,17 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            SizedBox(height: 30.h),
             Text(
               'Welcome To',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 30.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
             Container(
-              height: 300,
+              height: 300.sp,
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -117,70 +118,70 @@ class _LoginScreenState extends State<LoginScreen> {
             Text(
               'Login',
               style: TextStyle(
-                fontSize: 30,
+                fontSize: 30.sp,
                 fontWeight: FontWeight.bold,
                 color: Colors.deepPurple,
               ),
             ),
-            SizedBox(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    MyTextFormField(
-                      textInputType: TextInputType.number,
-                      controller: contactController,
-                      prefix: const Icon(Icons.phone),
-                      hinttext: 'Contact Number',
-                      textInputAction: TextInputAction.next,
-                      obscureText: false,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Contact number is required';
-                        }
-                        if (value.length != 10 ||
-                            !RegExp(r'^\d{10}$').hasMatch(value)) {
-                          return 'Please enter a valid 10-digit contact number';
-                        }
-                        return null;
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  MyTextFormField(
+                    textInputType: TextInputType.number,
+                    controller: contactController,
+                    prefix: const Icon(Icons.phone),
+                    hinttext: 'Contact Number',
+                    textInputAction: TextInputAction.next,
+                    obscureText: false,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                    ],
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Contact number is required';
+                      }
+                      if (value.length != 10 ||
+                          !RegExp(r'^\d{10}$').hasMatch(value)) {
+                        return 'Please enter a valid 10-digit contact number';
+                      }
+                      return null;
+                    },
+                  ),
+                  MyTextFormField(
+                    textInputType: TextInputType.text,
+                    controller: passwordController,
+                    prefix: const Icon(Icons.password),
+                    hinttext: 'Password',
+                    textInputAction: TextInputAction.done,
+                    suffix: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _obsure = !_obsure;
+                        });
                       },
-                    ),
-
-                    MyTextFormField(
-                      textInputType: TextInputType.emailAddress,
-                      controller: passwordController,
-                      prefix: const Icon(Icons.password),
-                      hinttext: 'Password',
-                      textInputAction: TextInputAction.done,
-                      suffix: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _obsure = !_obsure;
-                          });
-                        },
-                        child: Icon(
-                          _obsure ? Icons.visibility : Icons.visibility_off,
-                        ),
+                      child: Icon(
+                        _obsure ? Icons.visibility : Icons.visibility_off,
                       ),
-                      obscureText: _obsure,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Password is required';
-                        }
-                        if (value.length < 6) {
-                          return 'Password must be at least 6 characters long';
-                        }
-                        return null;
-                      },
                     ),
-                  ],
-                ),
+                    obscureText: _obsure,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password is required';
+                      }
+                      if (value.length < 6) {
+                        return 'Password must be at least 6 characters long';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
             SizedBox(
-              width: 200,
-              height: 45,
+              width: 200.w,
+              height: 45.h,
               child: ElevatedButton(
                 onPressed: _handleLogin,
                 style: ElevatedButton.styleFrom(
@@ -190,43 +191,58 @@ class _LoginScreenState extends State<LoginScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 12,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.w,
+                    vertical: 12.h,
                   ),
                 ),
                 child: const Text('Login'),
               ),
             ),
-            const SizedBox(height: 30),
+            SizedBox(height: 30.h),
 
-            GestureDetector(
-              onTap: () {
-                debugPrint("Navigate to Register");
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return RegisterScreen();
-                    },
-                  ),
-                );
-              },
-              child: const Text.rich(
-                TextSpan(
-                  text: "Don't have an account? ",
-                  children: [
-                    TextSpan(
-                      text: 'Register',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ],
+            // const Text.rich(
+            //   TextSpan(text: "Don't have an account? "),
+            //   textAlign: TextAlign.center,
+            // ),
+
+            // SizedBox(height: 10.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Mytext(
+                  text: 'Lele Ventures Pvt. Ltd.',
+                  fontSize: 12,
+                  fontWeight: FontWeight.normal,
                 ),
-                textAlign: TextAlign.center,
-              ),
+                SizedBox(width: 10.w),
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder:
+                //             (_) => const WebViewScreen(
+                //               url:
+                //                   'https://bihanitech.com/privacy_policy/privacy-policy-for-246-accessories/',
+                //               title: 'Privacy Policy',
+                //             ),
+                //       ),
+                //     );
+                //   },
+                //   child: Mytext(
+                //     text: "Privacy Policy",
+                //     fontSize: 12.sp,
+                //     fontWeight: FontWeight.bold,
+                //     color: Colors.blue,
+                //     fontStyle: FontStyle.normal,
+                //     textAlign: TextAlign.center,
+                //     overflow: TextOverflow.ellipsis,
+                //     maxLines: 1,
+                //   ),
+                // ),
+              ],
             ),
           ],
         ),

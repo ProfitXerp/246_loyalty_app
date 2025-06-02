@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyTextFormField extends StatelessWidget {
   final Icon prefix;
@@ -11,6 +12,7 @@ class MyTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final VoidCallback? onTap;
   final Widget? suffix;
+  final List<TextInputFormatter>? inputFormatters;
 
   const MyTextFormField({
     super.key,
@@ -24,6 +26,7 @@ class MyTextFormField extends StatelessWidget {
     required this.textInputType,
     this.onTap,
     this.suffix,
+    this.inputFormatters,
   });
   @override
   Widget build(BuildContext context) {
@@ -35,6 +38,7 @@ class MyTextFormField extends StatelessWidget {
         onTap: onTap,
         controller: controller,
         obscureText: obscureText,
+        inputFormatters: inputFormatters,
         decoration: InputDecoration(
           prefixIcon: prefix,
           hintText: hinttext,
